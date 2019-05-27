@@ -35,21 +35,18 @@
     <dependencies>
       <group targetFramework="net45">
         <dependency id="Autofac" version="3.0.0" />
-        <dependency id="Hangfire.Core" version="1.5.0" />
+        <dependency id="Hangfire.Core" version="1.7.2.7" />
       </group>
       <group targetFramework="netstandard1.3">
         <dependency id="NETStandard.Library" version="1.6.0" />
         <dependency id="Autofac" version="4.0.0" />
-        <dependency id="Hangfire.Core" version="1.6.0" />
+        <dependency id="Hangfire.Core" version="1.7.2.7" />
       </group>
     </dependencies>
   </metadata>
   <files>
     <file src="net45\Hangfire.Autofac.dll" target="lib\net45" />
     <file src="net45\Hangfire.Autofac.xml" target="lib\net45" />
-
-    <file src="netstandard1.3\Hangfire.Autofac.dll" target="lib\netstandard1.3" />
-    <file src="netstandard1.3\Hangfire.Autofac.xml" target="lib\netstandard1.3" />
 
     <file src="..\src\Hangfire.Autofac\**\*.cs" target="src" exclude="**\obj*\**\*.cs" />
 

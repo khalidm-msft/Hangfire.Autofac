@@ -20,11 +20,15 @@ Task Test -Depends CompileCore -Description "Run unit and integration tests." {
 
 Task Collect -Depends Test -Description "Copy all artifacts to the build folder." {
     Collect-Assembly "Hangfire.Autofac" "net45"
-    Collect-Assembly "Hangfire.Autofac" "netstandard1.3"
+    # Collect-Assembly "Hangfire.Autofac" "netstandard1.3"
     Collect-File "LICENSE"
 }
 
-Task Pack -Depends Collect -Description "Create NuGet packages and archive files." {
+Task Sign -Depends Collect -Description "StrongName assemblies." {
+    Get-ChildItem $build_dir -Include *.dll -Recurse | ForEach-Object { packages\Brutal.Dev.StrongNameSigner.2.3.0\build\StrongNameSigner.Console.exe -a $_ -k Hangfire.Autofac.snk }
+}
+
+Task Pack -Depends Sign -Description "Create NuGet packages and archive files." {
     $version = Get-PackageVersion
 
     Create-Archive "Hangfire.Autofac-$version"

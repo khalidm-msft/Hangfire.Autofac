@@ -2,7 +2,7 @@
   <PropertyGroup>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <TargetFrameworks>net45;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>net45</TargetFrameworks>
     <DebugType>embedded</DebugType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1591</NoWarn>
@@ -12,15 +12,15 @@
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.3'">
     <PackageReference Include="NETStandard.Library" Version="1.6.0" />
     <PackageReference Include="Autofac" Version="4.0.0" />
-    <PackageReference Include="Hangfire.Core" Version="1.6.0" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.2.7" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <PackageReference Include="Autofac" Version="3.0.0" />
-    <PackageReference Include="Hangfire.Core" Version="1.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire.Core" Version="1.7.2.7" />
     <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.0" PrivateAssets="All" />
   </ItemGroup>
 
