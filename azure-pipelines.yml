@@ -26,6 +26,15 @@ steps:
   inputs:
     command: custom
     arguments: 'install Brutal.Dev.StrongNameSigner -Source https://api.nuget.org/v3/index.json -outputDirectory $(Build.SourcesDirectory)/Packages'
+    
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'config'
+    nugetConfigPath: 'nuget.config'
+    externalFeedCredentials: 'ONMSFT'
+    versioningScheme: 'off'
 
 - task: CmdLine@2
   inputs:
