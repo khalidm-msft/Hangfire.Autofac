@@ -1,0 +1,46 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  version: 2.3.1.1
+
+steps:
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.0.2'
+    checkLatest: true
+
+- task: NuGetCommand@2
+  displayName: 'NuGet install StrongNameSigner'
+  inputs:
+    command: custom
+    arguments: 'install Brutal.Dev.StrongNameSigner -Source https://api.nuget.org/v3/index.json -outputDirectory $(Build.SourcesDirectory)/Packages'
+
+- task: CmdLine@2
+  inputs:
+    script: 'echo $(version)| build Version'
+            
+- task: BatchScript@1
+  inputs:
+    filename: 'build.bat'
+    arguments: 'pack'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    feedsToUse: 'select'
+    packagesToPush: '$(Build.SourcesDirectory)/Build/*.$(version).nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'internal'
+    versioningScheme: 'off'
